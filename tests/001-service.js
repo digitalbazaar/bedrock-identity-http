@@ -15,15 +15,19 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 describe('identity-service', function() {
 
-  it.only('should accept a get', function(done) {
-    request(
+  it.only('should accept a get request for a slug', function(done) {
+    sendRequest(
       {
-        url: identityService + '/i/' + config['identity-rest'].test.testUser,
+        url: identityService + '/' + config['identity-rest'].test.testUser,
         method: 'GET'
       },
       function(err, res, body) {
-        console.log('BODY', body);
-        done(err);
+        should.not.exist(err);
+        body.should.be.an('object');
+        should.exist(body.label);
+        body.label.should.be.a('string');
+        body.label.should.equal(config['identity-rest'].test.testUser);
+        done();
       }
     );
   });
