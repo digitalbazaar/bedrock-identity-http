@@ -21,6 +21,7 @@
   "homepage": "https://github.com/digitalbazaar/bedrock-identity-rest",
   "dependencies": {
     "async": "^1.4.2",
+    "bcrypt": "^0.8.5",
     "bedrock": "^1.0.6",
     "bedrock-identity": "^1.0.2",
     "bedrock-mail": "^1.0.1",
