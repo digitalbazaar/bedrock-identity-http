@@ -15,7 +15,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 describe('identity-service', function() {
 
-  it.only('should accept a get request for a slug', function(done) {
+  it('should accept a get request for a slug', function(done) {
     sendRequest(
       {
         url: identityService + '/' + config['identity-rest'].test.testUser,
@@ -32,7 +32,25 @@ describe('identity-service', function() {
     );
   });
 
-  it('should accept request with an httpSignature', function(done) {
+  it('should respond 404-NotFound on an unknown slug', function(done) {
+    sendRequest(
+      {
+        url: identityService + '/unknownUser',
+        method: 'GET'
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        res.statusCode.should.equal(404);
+        body.should.be.an('object');
+        should.exist(body.type);
+        body.type.should.be.a('string');
+        body.type.should.equal('NotFound');
+        done();
+      }
+    );
+  });
+
+  it.skip('should accept request with an httpSignature', function(done) {
     // console.log(config['identity-rest'].keys[0].privateKey.privateKeyPem);
     // console.log(config['identity-rest'].keys[0].privateKey.publicKey);
     var privateKeyPem =
