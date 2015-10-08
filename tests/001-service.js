@@ -69,6 +69,28 @@ describe('identity-service', function() {
       }
     );
   });
+
+  it.only('should create a new identity', function(done) {
+    // console.log(config['identity-rest'].keys[0].privateKey.privateKeyPem);
+    // console.log(config['identity-rest'].keys[0].privateKey.publicKey);
+    var privateKeyPem =
+      config['identity-rest'].keys[0].privateKey.privateKeyPem;
+    var publicKeyId = config['identity-rest'].keys[0].privateKey.publicKey;
+    sendRequest(
+      {
+        url: identityService,
+        method: 'POST',
+        identity: createIdentity('Abcdefg'),
+        privateKeyPem: privateKeyPem,
+        publicKeyId: publicKeyId
+      },
+      function(err, res, body) {
+        // console.log('BODY', body.details.errors);
+        console.log('RETURNED BODY', body);
+        done(err);
+      }
+    );
+  });
 });
 
 function sendRequest(options, callback) {
@@ -97,4 +119,19 @@ function sendRequest(options, callback) {
   }
 
   request(requestOptions, callback);
+}
+
+function createIdentity(userName) {
+  var newIdentity = {
+    //id: identityService + '/' + userName,
+    type: 'Identity',
+    sysSlug: userName,
+    label: userName,
+    email: userName + '@bedrock.dev',
+    sysPassword: 'password',
+    sysPublic: ['label', 'url', 'description'],
+    url: config.server.baseUri,
+    description: userName
+  };
+  return newIdentity;
 }
