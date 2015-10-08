@@ -1,0 +1,28 @@
+{
+  "name": "bedrock-identity-rest-test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node test.js",
+    "test": "node test.js test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalbazaar/bedrock-credentials-rest"
+  },
+  "dependencies": {
+    "bedrock": "^1.0.0",
+    "bedrock-docs": "^1.0.0",
+    "bedrock-identity": "^1.0.0",
+    "bedrock-mail": "^1.0.0",
+    "bedrock-mongodb": "^1.0.0",
+    "bedrock-passport": "^1.0.0",
+    "bedrock-session-mongodb": "^1.0.0",
+    "bedrock-validation": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "directories": {},
+  "main": "test.js"
+}
