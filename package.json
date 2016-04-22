@@ -32,7 +32,7 @@
     "bedrock": "^1.0.6",
     "bedrock-docs": "^2.0.0",
     "bedrock-key": "^2.0.0",
-    "bedrock-identity": "^3.0.0",
+    "bedrock-identity": "^4.0.0",
     "bedrock-mail": "^2.0.0",
     "bedrock-mongodb": "^2.0.0",
     "bedrock-passport": "^3.0.0",
