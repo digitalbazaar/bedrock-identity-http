@@ -21,7 +21,6 @@
   "homepage": "https://github.com/digitalbazaar/bedrock-identity-rest",
   "dependencies": {
     "async": "^1.5.2",
-    "bcrypt": "^0.8.5",
     "cors": "^2.7.1",
     "jsonld": "^0.4.2",
     "lodash": "^4.10.0",
