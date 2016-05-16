@@ -128,7 +128,7 @@ describe('identity-service', function() {
       });
     });
 
-    it.only('should return 409 on a duplicate identity', function(done) {
+    it('should return 409 on a duplicate identity', function(done) {
       var userId = uuid.v4();
       var privateKeyPem =
         config['identity-rest'].test.users.admin.keys.privateKey.privateKeyPem;
