@@ -1,5 +1,10 @@
 # bedrock-identity-rest ChangeLog
 
+## 0.5.0 - 2016-05-23
+
+### Added
+- Use config identity model to filter updates.
+
 ## 0.4.0 - 2016-05-16
 
 ### Added
