@@ -1,5 +1,7 @@
 # bedrock-identity-rest ChangeLog
 
+## 0.5.1 - 2016-06-07
+
 ### Changed
 - Update dependencies.
 
