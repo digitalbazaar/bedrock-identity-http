@@ -16,11 +16,11 @@
     "bedrock-express": "^2.0.0",
     "bedrock-identity": "^3.0.0",
     "bedrock-mail": "^2.0.0",
-    "bedrock-mongodb": "^2.0.0",
+    "bedrock-mongodb": "^3.0.0",
     "bedrock-passport": "^2.0.0",
     "bedrock-requirejs": "^2.0.0",
     "bedrock-server": "^2.0.0",
-    "bedrock-session-mongodb": "^2.0.0",
+    "bedrock-session-mongodb": "^2.0.2",
     "bedrock-validation": "^2.0.0"
   },
   "engines": {
