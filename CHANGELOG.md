@@ -1,5 +1,10 @@
 # bedrock-identity-rest ChangeLog
 
+## 0.5.2 - 2016-06-08
+
+### Changed
+- Serve default HTML route when requesting an identity.
+
 ## 0.5.1 - 2016-06-07
 
 ### Changed
