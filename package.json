@@ -1,6 +1,6 @@
 {
   "name": "bedrock-identity-rest",
-  "version": "0.5.2",
+  "version": "0.5.3-dev",
   "description": "A RESTful API for bedrock-identity",
   "main": "./lib/api.js",
   "scripts": {
