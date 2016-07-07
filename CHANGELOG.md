@@ -1,5 +1,7 @@
 # bedrock-identity-rest ChangeLog
 
+## 0.6.0 - 2016-07-07
+
 ### Fixed
 - Ensure common `updateIdentity` helper call and
   `constructedIdentity` is used when patching an identity.
