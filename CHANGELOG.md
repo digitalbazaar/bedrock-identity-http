@@ -1,5 +1,12 @@
 # bedrock-identity-rest ChangeLog
 
+### Fixed
+- Ensure common `updateIdentity` helper call and
+  `constructedIdentity` is used when patching an identity.
+
+### Removed
+- Remove obsolete POST endpoint for updating identity.
+
 ## 0.5.2 - 2016-06-08
 
 ### Changed
