@@ -16,12 +16,18 @@ roles['identity.admin'] = {
   label: 'Identity Administrator',
   comment: 'Role for identity administrators.',
   sysPermission: [
+    permissions.CREDENTIAL_ACCESS.id,
+    permissions.CREDENTIAL_INSERT.id,
+    permissions.CREDENTIAL_REMOVE.id,
+    permissions.IDENTITY_COMPOSE.id,
     permissions.IDENTITY_ADMIN.id,
     permissions.IDENTITY_ACCESS.id,
     permissions.IDENTITY_INSERT.id,
     permissions.IDENTITY_EDIT.id,
     permissions.IDENTITY_REMOVE.id,
+    permissions.PUBLIC_KEY_ACCESS.id,
     permissions.PUBLIC_KEY_CREATE.id,
+    permissions.PUBLIC_KEY_EDIT.id,
     permissions.PUBLIC_KEY_REMOVE.id
   ]
 };
@@ -30,10 +36,16 @@ roles['identity.manager'] = {
   label: 'Identity Manager',
   comment: 'Role for identity managers.',
   sysPermission: [
+    permissions.CREDENTIAL_ACCESS.id,
+    permissions.CREDENTIAL_INSERT.id,
+    permissions.CREDENTIAL_REMOVE.id,
+    permissions.IDENTITY_COMPOSE.id,
     permissions.IDENTITY_ACCESS.id,
     permissions.IDENTITY_INSERT.id,
     permissions.IDENTITY_EDIT.id,
+    permissions.PUBLIC_KEY_ACCESS.id,
     permissions.PUBLIC_KEY_CREATE.id,
+    permissions.PUBLIC_KEY_EDIT.id,
     permissions.PUBLIC_KEY_REMOVE.id
   ]
 };
@@ -52,7 +64,9 @@ roles['identity.registered'] = {
   id: 'identity.registered',
   label: 'Registered Identity',
   comment: 'Role for registered identities.',
-  sysPermission: [].concat(roles['identity.manager'].sysPermission)
+  sysPermission: [].concat(
+    roles['identity.manager'].sysPermission
+  )
 };
 
 bedrock.start();
