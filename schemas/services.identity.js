@@ -37,6 +37,15 @@ var sysPublic = {
   }
 };
 
+var deleteIdentityParams = {
+  title: 'Delete Identity with Parameters',
+  type: 'object',
+  properties: {
+    id: schemas.identifier()
+  },
+  additionalProperties: false
+};
+
 var postIdentity = {
   title: 'Post Identity',
   type: 'object',
@@ -189,6 +198,10 @@ var postEmailVerify = {
     sysPasscode: schemas.passcode()
   },
   additionalProperties: false
+};
+
+module.exports.deleteIdentityParams = function() {
+  return deleteIdentityParams;
 };
 
 module.exports.postIdentity = function() {
