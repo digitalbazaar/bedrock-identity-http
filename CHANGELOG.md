@@ -1,5 +1,13 @@
 # bedrock-identity-http ChangeLog
 
+## 1.0.0 - 2016-07-20
+
+### Changed
+- Renamed module from `bedrock-identity-rest` to `bedrock-identity-http`.
+
+### Added
+- Implement updating and deleting DID based identities.
+
 ## 0.6.0 - 2016-07-07
 
 ### Fixed
