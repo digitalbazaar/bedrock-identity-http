@@ -1,14 +1,14 @@
 {
-  "name": "bedrock-identity-rest",
+  "name": "bedrock-identity-http",
   "version": "0.6.1-0",
-  "description": "A RESTful API for bedrock-identity",
+  "description": "An HTTP API for bedrock-identity",
   "main": "./lib/api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalbazaar/bedrock-identity-rest.git"
+    "url": "https://github.com/digitalbazaar/bedrock-identity-http.git"
   },
   "author": {
     "name": "Digital Bazaar, Inc.",
@@ -16,9 +16,9 @@
     "url": "http://digitalbazaar.com"
   },
   "bugs": {
-    "url": "https://github.com/digitalbazaar/bedrock-identity-rest/issues"
+    "url": "https://github.com/digitalbazaar/bedrock-identity-http/issues"
   },
-  "homepage": "https://github.com/digitalbazaar/bedrock-identity-rest",
+  "homepage": "https://github.com/digitalbazaar/bedrock-identity-http",
   "dependencies": {
     "async": "^1.5.2",
     "cors": "^2.7.1",

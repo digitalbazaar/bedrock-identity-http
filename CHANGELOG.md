@@ -1,4 +1,4 @@
-# bedrock-identity-rest ChangeLog
+# bedrock-identity-http ChangeLog
 
 ## 0.6.0 - 2016-07-07
 

@@ -1,6 +1,8 @@
 /*
- * Copyright (c) 2015 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
  */
+/* globals after, before, describe, it, require, should */
+/* jshint node: true */
 
 'use strict';
 
@@ -11,7 +13,7 @@ var request = require('request');
 var uuid = require('node-uuid');
 request = request.defaults({json: true});
 
-var identityService = config.server.baseUri + config['identity-rest'].basePath;
+var identityService = config.server.baseUri + config['identity-http'].basePath;
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
@@ -22,7 +24,7 @@ describe('identity-service', function() {
       sendRequest(
         {
           url: identityService + '/' +
-            config['identity-rest'].test.users.registered.name,
+            config['identity-http'].test.users.registered.name,
           method: 'GET'
         },
         function(err, res, body) {
@@ -32,7 +34,7 @@ describe('identity-service', function() {
           should.exist(body.label);
           body.label.should.be.a('string');
           body.label.should.equal(
-            config['identity-rest'].test.users.registered.name);
+            config['identity-http'].test.users.registered.name);
           done();
         }
       );
@@ -61,13 +63,13 @@ describe('identity-service', function() {
 
     it('should accept a get request for a slug', function(done) {
       var privateKeyPem =
-        config['identity-rest'].test.users.admin.keys.privateKey.privateKeyPem;
+        config['identity-http'].test.users.admin.keys.privateKey.privateKeyPem;
       var publicKeyId =
-        config['identity-rest'].test.users.admin.keys.privateKey.publicKey;
+        config['identity-http'].test.users.admin.keys.privateKey.publicKey;
       sendRequest(
         {
           url: identityService + '/' +
-            config['identity-rest'].test.users.registered.name,
+            config['identity-http'].test.users.registered.name,
           method: 'GET',
           privateKeyPem: privateKeyPem,
           publicKeyId: publicKeyId
@@ -79,7 +81,7 @@ describe('identity-service', function() {
           should.exist(body.label);
           body.label.should.be.a('string');
           body.label.should.equal(
-            config['identity-rest'].test.users.registered.name);
+            config['identity-http'].test.users.registered.name);
           done(err);
         }
       );
@@ -88,9 +90,9 @@ describe('identity-service', function() {
     it('should create and lookup a new identity', function(done) {
       var userId = uuid.v4();
       var privateKeyPem =
-        config['identity-rest'].test.users.admin.keys.privateKey.privateKeyPem;
+        config['identity-http'].test.users.admin.keys.privateKey.privateKeyPem;
       var publicKeyId =
-        config['identity-rest'].test.users.admin.keys.privateKey.publicKey;
+        config['identity-http'].test.users.admin.keys.privateKey.publicKey;
       async.waterfall([
         function(callback) {
           sendRequest(
@@ -131,9 +133,9 @@ describe('identity-service', function() {
     it('should return 409 on a duplicate identity', function(done) {
       var userId = uuid.v4();
       var privateKeyPem =
-        config['identity-rest'].test.users.admin.keys.privateKey.privateKeyPem;
+        config['identity-http'].test.users.admin.keys.privateKey.privateKeyPem;
       var publicKeyId =
-        config['identity-rest'].test.users.admin.keys.privateKey.publicKey;
+        config['identity-http'].test.users.admin.keys.privateKey.publicKey;
       async.waterfall([
         function(callback) {
           sendRequest(
@@ -181,13 +183,13 @@ describe('identity-service', function() {
 });
 
 describe('admin users should update any identity', function() {
-  // console.log(config['identity-rest'].test.users.admin);
+  // console.log(config['identity-http'].test.users.admin);
   var userId = uuid.v4();
   var idUrl = null;
   var privateKeyPem =
-    config['identity-rest'].test.users.admin.keys.privateKey.privateKeyPem;
+    config['identity-http'].test.users.admin.keys.privateKey.privateKeyPem;
   var publicKeyId =
-    config['identity-rest'].test.users.admin.keys.privateKey.publicKey;
+    config['identity-http'].test.users.admin.keys.privateKey.publicKey;
 
   before(function(done) {
     sendRequest(

@@ -1,4 +1,4 @@
-# bedrock-identity-rest
+# bedrock-identity-http
 
 ## Requirements
 
