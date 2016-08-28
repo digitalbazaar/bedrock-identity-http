@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 1.0.1 - 2016-08-28
+
+### Changed
+- Add identity services documentation.
+
 ## 1.0.0 - 2016-07-20
 
 ### Changed
