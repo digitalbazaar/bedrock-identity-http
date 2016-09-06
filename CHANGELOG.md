@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 1.0.2 - 2016-09-06
+
+### Changed
+- Fix mocha test suite.
+
 ## 1.0.1 - 2016-08-28
 
 ### Changed
