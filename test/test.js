@@ -6,13 +6,13 @@ var config = bedrock.config;
 require('bedrock-express');
 require('bedrock-requirejs');
 require('bedrock-server');
-require('../lib/api');
+require('../lib');
 
 var permissions = config.permission.permissions;
 var roles = config.permission.roles;
 
-roles['identity.admin'] = {
-  id: 'identity.administrator',
+roles['bedrock-identity-http.identity.administrator'] = {
+  id: 'bedrock-identity-http.identity.administrator',
   label: 'Identity Administrator',
   comment: 'Role for identity administrators.',
   sysPermission: [
@@ -25,8 +25,8 @@ roles['identity.admin'] = {
     permissions.PUBLIC_KEY_REMOVE.id
   ]
 };
-roles['identity.manager'] = {
-  id: 'identity.manager',
+roles['bedrock-identity-http.identity.manager'] = {
+  id: 'bedrock-identity-http.identity.manager',
   label: 'Identity Manager',
   comment: 'Role for identity managers.',
   sysPermission: [
@@ -39,20 +39,22 @@ roles['identity.manager'] = {
 };
 
 // admin role contains all permissions
-roles['admin'] = {
-  id: 'admin',
+roles['bedrock-identity-http.admin'] = {
+  id: 'bedrock-identity-http.admin',
   label: 'Administrator',
   comment: 'Role for System Administrator.',
-  sysPermission: [].concat(roles['identity.admin'].sysPermission)
+  sysPermission: [].concat(
+    roles['bedrock-identity-http.identity.administrator'].sysPermission)
 };
 
 // default registered identity role (contains all permissions for a regular
 // identity)
-roles['identity.registered'] = {
-  id: 'identity.registered',
+roles['bedrock-identity-http.identity.registered'] = {
+  id: 'bedrock-identity-http.identity.registered',
   label: 'Registered Identity',
   comment: 'Role for registered identities.',
-  sysPermission: [].concat(roles['identity.manager'].sysPermission)
+  sysPermission: [].concat(
+    roles['bedrock-identity-http.identity.manager'].sysPermission)
 };
 
 bedrock.start();
