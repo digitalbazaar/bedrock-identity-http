@@ -1,6 +1,6 @@
 {
   "name": "bedrock-identity-http",
-  "version": "1.0.3",
+  "version": "1.0.4-0",
   "description": "An HTTP API for bedrock-identity",
   "main": "./lib",
   "scripts": {},
