@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 1.0.3 - 2016-09-21
+
+### Changed
+- Restructure test framework for CI.
+
 ## 1.0.2 - 2016-09-06
 
 ### Changed
