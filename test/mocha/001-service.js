@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
  */
-/* globals after, before, describe, it, require, should */
+/* globals before, describe, it, require, should */
 /* jshint node: true */
 
 'use strict';
@@ -23,7 +23,7 @@ describe('bedrock-identity-http', function() {
   });
   describe('identity-service', function() {
     describe('unauthenticated requests', function() {
-      it('should accept a request for a slug', function(done) {
+      it('should accept a request for a slug with public label', done => {
         sendRequest(
           {
             url: mockData.identities.registered.identity.id,
@@ -290,10 +290,7 @@ describe('bedrock-identity-http', function() {
         });
       });
     });
-
   });
-
-
 });
 
 function sendRequest(options, callback) {
