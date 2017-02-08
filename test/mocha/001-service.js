@@ -142,6 +142,38 @@ describe('bedrock-identity-http', function() {
             });
           });
 
+          it.only('should return 400 for invalid identity owner', function(done) {
+            var actor = mockData.identities.registered;
+            var userId = uuid();
+            var privateKeyPem = actor.keys.privateKey.privateKeyPem;
+            var publicKeyId = actor.keys.privateKey.publicKey;
+            var group = createIdentity(userId);
+            group.type = ['Identity', 'Group'];
+            group.owner = mockData.identities.adminUser.identity.id;
+            async.waterfall([
+              function(callback) {
+                sendRequest({
+                  url: identityService,
+                  method: 'POST',
+                  identity: group,
+                  privateKeyPem: privateKeyPem,
+                  publicKeyId: publicKeyId
+                }, callback);
+              },
+              function(res, body, callback) {
+                res.statusCode.should.equal(400);
+                should.exist(body);
+                body.should.be.an('object');
+                should.exist(body.type);
+                body.type.should.equal('AddIdentityFailed');
+                callback();
+              }
+            ], function(err) {
+              should.not.exist(err);
+              done();
+            });
+          });
+
           it('should return 409 on a duplicate identity', function(done) {
             var userId = uuid();
             var actor = mockData.identities.adminUser;

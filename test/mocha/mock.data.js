@@ -20,6 +20,10 @@ identities[userName].identity.sysResourceRole.push({
   sysRole: 'identity.registered',
   generateResource: 'id'
 });
+identities[userName].identity.sysResourceRole.push({
+  sysRole: 'bedrock-identity-http.identity.registered',
+  generateResource: 'id'
+});
 
 identities[userName].keys = helpers.createKeyPair({
   id: keyId,
