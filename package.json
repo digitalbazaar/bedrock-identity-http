@@ -26,7 +26,7 @@
   "peerDependencies": {
     "bedrock": "^1.0.6",
     "bedrock-docs": "^2.0.0",
-    "bedrock-identity": "^4.2.0",
+    "bedrock-identity": "^4.3.0",
     "bedrock-key": "^3.0.0",
     "bedrock-mail": "^2.0.0",
     "bedrock-mongodb": "^3.0.0",
