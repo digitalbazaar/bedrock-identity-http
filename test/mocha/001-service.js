@@ -142,7 +142,7 @@ describe('bedrock-identity-http', function() {
             });
           });
 
-          it.only('should return 400 for invalid identity owner', function(done) {
+          it('should return 400 for invalid identity owner', function(done) {
             var actor = mockData.identities.registered;
             var userId = uuid();
             var privateKeyPem = actor.keys.privateKey.privateKeyPem;
