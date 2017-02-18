@@ -73,6 +73,10 @@ identities[userName].identity = helpers.createIdentity(userName);
 identities[userName].identity.sysResourceRole.push({
   sysRole: 'bedrock-identity-http.admin'
 });
+identities[userName].identity.sysResourceRole.push({
+  sysRole: 'bedrock-identity-http.admin',
+  generateResource: 'id'
+});
 
 identities[userName].keys = helpers.createKeyPair({
   id: keyId,
