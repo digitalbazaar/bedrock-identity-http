@@ -224,21 +224,50 @@ describe('bedrock-identity-http', function() {
         describe('should update any identity', function() {
           var actor = mockData.identities.adminUser;
           var userId = uuid();
-          var idUrl = null;
+          var groupId = uuid();
           var privateKeyPem = actor.keys.privateKey.privateKeyPem;
           var publicKeyId = actor.keys.privateKey.publicKey;
+          var createdIdentity = null;
+          var createdGroup = null;
 
           before(function(done) {
-            sendRequest({
-              url: identityService,
-              method: 'POST',
-              identity: createIdentity(userId),
-              privateKeyPem: privateKeyPem,
-              publicKeyId: publicKeyId
-            }, function(err, res, body) {
-              idUrl = body.id;
-              done();
-            });
+            var newIdentity = createIdentity(userId);
+            newIdentity.sysResourceRole = [{
+              sysRole: 'identity.registered',
+              generateResource: 'id'
+            }, {
+              sysRole: 'bedrock-identity-http.identity.registered',
+              generateResource: 'id'
+            }];
+            async.auto({
+              createIdentity: function(callback) {
+                sendRequest({
+                  url: identityService,
+                  method: 'POST',
+                  identity: newIdentity,
+                  privateKeyPem: privateKeyPem,
+                  publicKeyId: publicKeyId
+                }, function(err, res, body) {
+                  createdIdentity = body;
+                  callback(err, createdIdentity);
+                });
+              },
+              createGroup: ['createIdentity', function(callback, results) {
+                var group = createIdentity(groupId);
+                group.owner = actor.id;
+                group.type = ['Identity', 'Group'];
+                sendRequest({
+                  url: identityService,
+                  method: 'POST',
+                  identity: group,
+                  privateKeyPem: privateKeyPem,
+                  publicKeyId: publicKeyId
+                }, function(err, res, body) {
+                  createdGroup = body;
+                  callback(err);
+                });
+              }]
+            }, done);
           });
 
           it('should update an identities label', function(done) {
@@ -246,7 +275,7 @@ describe('bedrock-identity-http', function() {
             async.waterfall([
               function(callback) {
                 sendRequest({
-                  url: idUrl,
+                  url: createdIdentity.id,
                   method: 'PATCH',
                   identity: [{
                     changes: {label: newData},
@@ -260,7 +289,7 @@ describe('bedrock-identity-http', function() {
                 res.statusCode.should.equal(204);
                 sendRequest(
                   {
-                    url: idUrl,
+                    url: createdIdentity.id,
                     method: 'GET'
                   }, callback);
               },
@@ -283,7 +312,7 @@ describe('bedrock-identity-http', function() {
             async.waterfall([
               function(callback) {
                 sendRequest({
-                  url: idUrl,
+                  url: createdIdentity.id,
                   method: 'PATCH',
                   identity: [{
                     changes: {description: newData},
@@ -297,7 +326,7 @@ describe('bedrock-identity-http', function() {
                 res.statusCode.should.equal(204);
                 sendRequest(
                   {
-                    url: idUrl,
+                    url: createdIdentity.id,
                     method: 'GET'
                   }, callback);
               },
@@ -307,6 +336,49 @@ describe('bedrock-identity-http', function() {
                 should.exist(body.label);
                 body.description.should.be.a('string');
                 body.description.should.equal(newData);
+                callback();
+              }
+            ], function(err) {
+              should.not.exist(err);
+              done();
+            });
+          });
+
+          it('should update an identities sysResourceRoles', function(done) {
+            var updatedSysResourceRole = actor.identity.sysResourceRole;
+            updatedSysResourceRole.push({
+              sysRole: 'bedrock-identity-http.identity.manager',
+              resource: [createdGroup.id]
+            });
+            async.waterfall([
+              function(callback) {
+                sendRequest({
+                  url: actor.identity.id,
+                  method: 'PATCH',
+                  identity: [{
+                    changes: {
+                      sysResourceRole: updatedSysResourceRole},
+                    op: 'updateIdentity'
+                  }],
+                  privateKeyPem: privateKeyPem,
+                  publicKeyId: publicKeyId
+                }, callback);
+              },
+              function(res, body, callback) {
+                res.statusCode.should.equal(204);
+                sendRequest(
+                  {
+                    url: actor.identity.id,
+                    method: 'GET',
+                    privateKeyPem: privateKeyPem,
+                    publicKeyId: publicKeyId
+                  }, callback);
+              },
+              function(res, body, callback) {
+                should.exist(body);
+                body.should.be.an('object');
+                should.exist(body.sysResourceRole);
+                body.sysResourceRole.should.be.a('array');
                 callback();
               }
             ], function(err) {
