@@ -17,10 +17,6 @@ keyId = '969700f0-ef10-49c5-8328-4826a907a82a';
 identities[userName] = {};
 identities[userName].identity = helpers.createIdentity(userName);
 identities[userName].identity.sysResourceRole.push({
-  sysRole: 'identity.registered',
-  generateResource: 'id'
-});
-identities[userName].identity.sysResourceRole.push({
   sysRole: 'bedrock-identity-http.identity.registered',
   generateResource: 'id'
 });
