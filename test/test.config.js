@@ -31,7 +31,7 @@ roles['bedrock-identity-http.identity.administrator'] = {
     permissions.IDENTITY_INSERT.id,
     permissions.IDENTITY_EDIT.id,
     permissions.IDENTITY_REMOVE.id,
-    permissions.IDENTITY_ROLE_DELEGATE.id,
+    permissions.IDENTITY_CAPABILITY_DELEGATE.id,
     permissions.PUBLIC_KEY_CREATE.id,
     permissions.PUBLIC_KEY_REMOVE.id
   ]
@@ -44,8 +44,9 @@ roles['bedrock-identity-http.identity.manager'] = {
     permissions.IDENTITY_ACCESS.id,
     permissions.IDENTITY_INSERT.id,
     permissions.IDENTITY_EDIT.id,
+    permissions.IDENTITY_CAPABILITY_DELEGATE.id,
     permissions.PUBLIC_KEY_CREATE.id,
-    permissions.PUBLIC_KEY_REMOVE.id
+    permissions.PUBLIC_KEY_REMOVE.id,
   ]
 };
 

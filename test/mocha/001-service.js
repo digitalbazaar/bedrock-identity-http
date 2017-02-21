@@ -233,9 +233,6 @@ describe('bedrock-identity-http', function() {
           before(function(done) {
             var newIdentity = createIdentity(userId);
             newIdentity.sysResourceRole = [{
-              sysRole: 'identity.registered',
-              generateResource: 'id'
-            }, {
               sysRole: 'bedrock-identity-http.identity.registered',
               generateResource: 'id'
             }];
@@ -248,6 +245,7 @@ describe('bedrock-identity-http', function() {
                   privateKeyPem: privateKeyPem,
                   publicKeyId: publicKeyId
                 }, function(err, res, body) {
+                  res.statusCode.should.equal(201);
                   createdIdentity = body;
                   callback(err, createdIdentity);
                 });
@@ -356,9 +354,10 @@ describe('bedrock-identity-http', function() {
                   url: actor.identity.id,
                   method: 'PATCH',
                   identity: [{
-                    changes: {
-                      sysResourceRole: updatedSysResourceRole},
-                    op: 'updateIdentity'
+                    value: {
+                      sysResourceRole: updatedSysResourceRole
+                    },
+                    op: 'add'
                   }],
                   privateKeyPem: privateKeyPem,
                   publicKeyId: publicKeyId
