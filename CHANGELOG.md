@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 1.1.0 - 2017-03-02
+
+### Added
+- Add support for group membership.
+
 ## 1.0.3 - 2016-09-21
 
 ### Changed
