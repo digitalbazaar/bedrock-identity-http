@@ -35,7 +35,6 @@
     "bedrock-test": "^1.0.0",
     "bedrock-validation": "^2.0.0",
     "cors": "^2.7.1",
-    "grunt": "^1.0.1",
     "jsonld": "^0.4.2",
     "lodash": "^4.10.0",
     "request": "^2.64.0",
