@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 1.2.0 - 2017-06-27
+
+### Changed
+- Upgrade `bedrock-key` peer dependency from 3.x to 4.x.
+
 ## 1.1.0 - 2017-03-02
 
 ### Added
