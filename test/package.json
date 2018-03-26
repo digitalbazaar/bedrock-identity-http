@@ -26,19 +26,16 @@
     "bedrock-docs": "^2.0.2",
     "bedrock-express": "^2.0.6",
     "bedrock-identity": "^4.6.0",
+    "bedrock-identity-http": "file:..",
     "bedrock-key": "^4.0.0",
     "bedrock-mail": "^2.0.0",
-    "bedrock-mongodb": "^3.0.0",
+    "bedrock-mongodb": "^5.1.2",
     "bedrock-passport": "^3.1.6",
     "bedrock-permission": "^2.3.0",
     "bedrock-server": "^2.1.2",
-    "bedrock-test": "^1.0.0",
+    "bedrock-test": "^2.0.0",
     "bedrock-validation": "^2.0.0",
-    "cors": "^2.7.1",
-    "jsonld": "^0.4.2",
-    "lodash": "^4.10.0",
     "request": "^2.64.0",
     "uuid": "^2.0.2"
-  },
-  "peerDependencies": {}
+  }
 }
