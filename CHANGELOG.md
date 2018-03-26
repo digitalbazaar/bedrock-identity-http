@@ -1,5 +1,8 @@
 # bedrock-identity-http ChangeLog
 
+### Changed
+- Update `bedrock-mongodb` peer dependency.
+
 ## 1.2.1 - 2017-06-27
 
 ### Fixed
