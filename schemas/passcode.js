@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2018 Digital Bazaar, Inc. All rights reserved.
  */
-var bedrock = require('bedrock');
+'use strict';
 
-var schema = {
-  required: true,
+const bedrock = require('bedrock');
+
+const schema = {
   title: 'Passcode',
   description: 'An auto-generated security code.',
   type: 'string',

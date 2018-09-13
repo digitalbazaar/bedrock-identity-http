@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2018 Digital Bazaar, Inc. All rights reserved.
  */
-var helpers = require('./helpers');
+'use strict';
 
-var data = {};
+const helpers = require('./helpers');
+
+const data = {};
 module.exports = data;
 
-var identities = data.identities = {};
+const identities = data.identities = {};
 data.keys = {};
 
-var keyId;
-var userName;
+let keyId;
+let userName;
 
 userName = 'registered';
 keyId = '969700f0-ef10-49c5-8328-4826a907a82a';

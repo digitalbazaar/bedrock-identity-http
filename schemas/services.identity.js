@@ -1,43 +1,46 @@
 /*
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2018 Digital Bazaar, Inc. All rights reserved.
  */
-var constants = require('bedrock').config.constants;
-var schemas = require('bedrock-validation').schemas;
+'use strict';
 
-var sysImageType = {
-  required: false,
-  type: 'string',
-  enum: ['url', 'gravatar']
-};
-var sysGravatarType = {
-  required: false,
-  type: 'string',
-  enum: ['gravatar', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro']
-};
-var sysPublic = {
-  required: false,
-  title: 'Identity Property Visibility',
-  description: 'A list of Identity properties that are publicly visible.',
-  type: 'array',
-  uniqueItems: true,
-  items: {
-    type: 'string',
-    enum: [
-      'description',
-      'email',
-      'image',
-      'label',
-      'url'
-    ]
-  },
-  errors: {
-    invalid: 'Only "description", "email", "image", "label", and "url" are ' +
-      'permitted.',
-    missing: 'Please enter the properties that should be publicly visible.'
-  }
-};
+const {schemas} = require('bedrock-validation');
 
-var deleteIdentityParams = {
+// FIXME: this schema is not being used.
+// const sysImageType = {
+//   type: 'string',
+//   enum: ['url', 'gravatar']
+// };
+
+// FIXME: this schema is not being used.
+// const sysGravatarType = {
+//   type: 'string',
+//   enum: ['gravatar', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro']
+// };
+
+// FIXME: this schema is not being used.
+// const sysPublic = {
+//   title: 'Identity Property Visibility',
+//   description: 'A list of Identity properties that are publicly visible.',
+//   type: 'array',
+//   uniqueItems: true,
+//   items: {
+//     type: 'string',
+//     enum: [
+//       'description',
+//       'email',
+//       'image',
+//       'label',
+//       'url'
+//     ]
+//   },
+//   errors: {
+//     invalid: 'Only "description", "email", "image", "label", and "url" ' +
+//       'are permitted.',
+//     missing: 'Please enter the properties that should be publicly visible.'
+//   }
+// };
+
+const deleteIdentityParams = {
   title: 'Delete Identity with Parameters',
   type: 'object',
   properties: {
@@ -46,179 +49,168 @@ var deleteIdentityParams = {
   additionalProperties: false
 };
 
-var postIdentity = {
-  title: 'Post Identity',
-  type: 'object',
-  properties: {
-    '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
-    id: schemas.identifier(),
-    description: schemas.description({required: false}),
-    //email: schemas.email({required: false}),
-    image: schemas.url({required: false}),
-    label: schemas.label({required: false}),
-    url: schemas.url({required: false}),
-    sysImageType: sysImageType,
-    sysGravatarType: sysGravatarType,
-    sysPublic: sysPublic,
-    sysSigningKey: schemas.identifier({required: false})
-  },
-  additionalProperties: false
-};
+// FIXME: this schema is not being used.
+// const postIdentity = {
+//   title: 'Post Identity',
+//   required: ['@context', 'id'],
+//   type: 'object',
+//   properties: {
+//     '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
+//     id: schemas.identifier(),
+//     description: schemas.description(),
+//     image: schemas.url(),
+//     label: schemas.label(),
+//     url: schemas.url(),
+//     sysImageType: sysImageType,
+//     sysGravatarType: sysGravatarType,
+//     sysPublic: sysPublic,
+//     sysSigningKey: schemas.identifier()
+//   },
+//   additionalProperties: false
+// };
 
-var getIdentitiesQuery = {
+const getIdentitiesQuery = {
   title: 'Get Identities Query',
   type: 'object',
   properties: {
     service: {
-      required: false,
       type: 'string',
       enum: ['add-key']
     },
-    'public-key-label': {
-      required: false,
-      type: schemas.label()
-    },
-    'public-key': {
-      required: false,
-      type: schemas.publicKeyPem()
-    },
-    'registration-callback': {
-      required: false,
-      type: schemas.url()
-    },
-    'response-nonce': {
-      required: false,
-      type: schemas.nonce()
-    }
+    'public-key-label': schemas.label(),
+    'public-key': schemas.publicKeyPem(),
+    'registration-callback': schemas.url(),
+    'response-nonce': schemas.nonce(),
   }
 };
 
-var postIdentitiesQuery = {
+const postIdentitiesQuery = {
   title: 'Post Identities Query',
   type: 'object',
   properties: {
     action: {
-      required: false,
       type: 'string',
       enum: ['query']
     },
     authorize: {
-      required: false,
       type: 'string',
       enum: ['true']
     },
     credentials: {
-      required: false,
       type: 'string',
       enum: ['true', 'false']
     },
     domain: {
-      required: true,
       type: 'string',
       minLength: 1,
       maxLength: 100
     },
     callback: {
-      required: false,
       type: schemas.url()
     }
   }
 };
 
-var postIdentities = {
-  title: 'Post Identities',
-  description: 'Identity credentials query or Identity creation',
-  type: [{
-    title: 'Identity Query',
-    description: 'Query Identity credentials',
-    type: 'object',
-    properties: {
-      query: {
-        required: true,
-        type: 'string'
-      }
-    },
-    additionalProperties: false
-  }, {
-    title: 'Create Identity',
-    description: 'Create an Identity',
-    type: 'object',
-    properties: {
-      '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
-      id: schemas.identifier({required: false}),
-      type: {
-        required: true,
-        type: 'string',
-        enum: ['Identity']
-      },
-      sysSlug: schemas.slug(),
-      label: schemas.label(),
-      image: schemas.url({required: false}),
-      email: schemas.email(),
-      sysPassword: schemas.password(),
-      url: schemas.url({required: false}),
-      description: schemas.description({required: false}),
-      sysImageType: sysImageType,
-      sysGravatarType: sysGravatarType,
-      sysPublic: sysPublic
-    },
-    additionalProperties: false
-  }]
-};
+// FIXME: this schema is not being used.
+// const postIdentities = {
+//   title: 'Post Identities',
+//   description: 'Identity credentials query or Identity creation',
+//   oneOf: [{
+//     title: 'Identity Query',
+//     description: 'Query Identity credentials',
+//     required: ['query'],
+//     type: 'object',
+//     properties: {
+//       query: {
+//         type: 'string'
+//       }
+//     },
+//     additionalProperties: false
+//   }, {
+//     title: 'Create Identity',
+//     description: 'Create an Identity',
+//     required: [
+//       '@context',
+//       'email',
+//       'label',
+//       'sysSlug',
+//       'type',
+//     ],
+//     type: 'object',
+//     properties: {
+//       '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
+//       id: schemas.identifier(),
+//       type: {
+//         type: 'string',
+//         enum: ['Identity']
+//       },
+//       sysSlug: schemas.slug(),
+//       label: schemas.label(),
+//       image: schemas.url(),
+//       email: schemas.email(),
+//       sysPassword: schemas.password(),
+//       url: schemas.url({required: false}),
+//       description: schemas.description({required: false}),
+//       sysImageType: sysImageType,
+//       sysGravatarType: sysGravatarType,
+//       sysPublic: sysPublic
+//     },
+//     additionalProperties: false
+//   }]
+// };
 
-var postPreferences = {
-  title: 'Post Preferences',
-  type: 'object',
-  properties: {
-    '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
-    type: schemas.jsonldType('IdentityPreferences'),
-    publicKey: {
-      required: false,
-      type: [{
-        // IRI only
-        type: 'string'
-      }, {
-        // label+pem
-        type: 'object',
-        properties: {
-          label: schemas.label(),
-          publicKeyPem: schemas.publicKeyPem()
-        }
-      }]
-    }
-  },
-  additionalProperties: false
-};
+// FIXME: this schema is not being used.
+// const postPreferences = {
+//   title: 'Post Preferences',
+//   type: 'object',
+//   properties: {
+//     '@context': schemas.jsonldContext(constants.IDENTITY_CONTEXT_V1_URL),
+//     type: schemas.jsonldType('IdentityPreferences'),
+//     publicKey: {
+//       required: false,
+//       type: [{
+//         // IRI only
+//         type: 'string'
+//       }, {
+//         // label+pem
+//         type: 'object',
+//         properties: {
+//           label: schemas.label(),
+//           publicKeyPem: schemas.publicKeyPem()
+//         }
+//       }]
+//     }
+//   },
+//   additionalProperties: false
+// };
 
-var postEmailVerify = {
-  title: 'Verify email',
-  description: 'Verify an email address.',
-  type: 'object',
-  properties: {
-    sysPasscode: schemas.passcode()
-  },
-  additionalProperties: false
-};
+// FIXME: this schema is not being used.
+// const postEmailVerify = {
+//   title: 'Verify email',
+//   description: 'Verify an email address.',
+//   type: 'object',
+//   properties: {
+//     sysPasscode: schemas.passcode()
+//   },
+//   additionalProperties: false
+// };
 
-module.exports.deleteIdentityParams = function() {
-  return deleteIdentityParams;
-};
+module.exports.deleteIdentityParams = () => deleteIdentityParams;
 
-module.exports.postIdentity = function() {
-  return postIdentity;
-};
-module.exports.getIdentitiesQuery = function() {
-  return getIdentitiesQuery;
-};
-module.exports.postIdentitiesQuery = function() {
-  return postIdentitiesQuery;
-};
-module.exports.postIdentities = function() {
-  return postIdentities;
-};
-module.exports.postPreferences = function() {
-  return postPreferences;
-};
-module.exports.postEmailVerify = function() {
-  return postEmailVerify;
-};
+// module.exports.postIdentity = function() {
+//   return postIdentity;
+// };
+
+module.exports.getIdentitiesQuery = () => getIdentitiesQuery;
+
+module.exports.postIdentitiesQuery = () => postIdentitiesQuery;
+
+// module.exports.postIdentities = function() {
+//   return postIdentities;
+// };
+// module.exports.postPreferences = function() {
+//   return postPreferences;
+// };
+// module.exports.postEmailVerify = function() {
+//   return postEmailVerify;
+// };

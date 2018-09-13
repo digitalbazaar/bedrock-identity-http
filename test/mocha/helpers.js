@@ -1,19 +1,21 @@
 /*
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2018 Digital Bazaar, Inc. All rights reserved.
  */
-var async = require('async');
-var bedrock = require('bedrock');
-var brIdentity = require('bedrock-identity');
-var brKey = require('bedrock-key');
-var config = bedrock.config;
-var database = require('bedrock-mongodb');
-var uuid = require('uuid/v4');
+'use strict';
 
-var helpers = {};
+const async = require('async');
+const bedrock = require('bedrock');
+const brIdentity = require('bedrock-identity');
+const brKey = require('bedrock-key');
+const config = bedrock.config;
+const database = require('bedrock-mongodb');
+const uuid = require('uuid/v4');
+
+const helpers = {};
 module.exports = helpers;
 
 helpers.createIdentity = function(userName) {
-  var newIdentity = {
+  const newIdentity = {
     id: config.server.baseUri + config['identity-http'].basePath +
       '/' + userName,
     type: 'Identity',
@@ -31,12 +33,12 @@ helpers.createIdentity = function(userName) {
 };
 
 helpers.createKeyPair = function(options) {
-  var publicKey = options.publicKey;
-  var privateKey = options.privateKey;
-  var id = options.id || uuid();
-  var keyId = config.server.baseUri + config.key.basePath + '/' + id;
-  var ownerId = options.owner;
-  var newKeyPair = {
+  const publicKey = options.publicKey;
+  const privateKey = options.privateKey;
+  const id = options.id || uuid();
+  const keyId = config.server.baseUri + config.key.basePath + '/' + id;
+  const ownerId = options.owner;
+  const newKeyPair = {
     publicKey: {
       '@context': 'https://w3id.org/identity/v1',
       id: keyId,
@@ -70,7 +72,7 @@ helpers.prepareDatabase = function(options, callback) {
 };
 
 helpers.removeCollections = function(callback) {
-  var collectionNames = [
+  const collectionNames = [
     'credentialProvider', 'identity', 'publicKey', 'eventLog'];
   database.openCollections(collectionNames, function() {
     async.each(collectionNames, function(collectionName, callback) {
@@ -83,7 +85,7 @@ helpers.removeCollections = function(callback) {
 
 // Insert identities and public keys used for testing into database
 function insertTestData(options, done) {
-  var mockData = options.mockData;
+  const mockData = options.mockData;
   async.forEachOf(mockData.identities, function(identity, key, callback) {
     async.parallel([
       function(callback) {

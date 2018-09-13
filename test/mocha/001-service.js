@@ -1,21 +1,19 @@
 /*
- * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2018 Digital Bazaar, Inc. All rights reserved.
  */
-/* globals before, describe, it, require, should */
-/* jshint node: true */
-
 'use strict';
 
-var async = require('async');
-var bedrock = require('bedrock');
-var config = bedrock.config;
-var helpers = require('./helpers');
-var mockData = require('./mock.data');
-var request = require('request');
-var uuid = require('uuid/v4');
+const async = require('async');
+const bedrock = require('bedrock');
+const config = bedrock.config;
+const helpers = require('./helpers');
+const mockData = require('./mock.data');
+let request = require('request');
+const uuid = require('uuid/v4');
 request = request.defaults({json: true, strictSSL: false});
 
-var identityService = config.server.baseUri + config['identity-http'].basePath;
+const identityService = config.server.baseUri +
+  config['identity-http'].basePath;
 
 describe('bedrock-identity-http', function() {
   before(function(done) {
@@ -64,12 +62,12 @@ describe('bedrock-identity-http', function() {
 
     describe('authenticated requests', function() {
       describe('admin user', function() {
-        var actor = mockData.identities.adminUser;
+        const actor = mockData.identities.adminUser;
 
         describe('GET request for all identities', function() {
           it('should include all identity data', function(done) {
-            var privateKeyPem = actor.keys.privateKey.privateKeyPem;
-            var publicKeyId = actor.keys.privateKey.publicKey;
+            const privateKeyPem = actor.keys.privateKey.privateKeyPem;
+            const publicKeyId = actor.keys.privateKey.publicKey;
             sendRequest({
               url: identityService,
               method: 'GET',
@@ -81,7 +79,7 @@ describe('bedrock-identity-http', function() {
               should.exist(body);
               body.should.be.an('array');
               body.should.have.length(2);
-              var r = body.filter(function(i) {
+              const r = body.filter(function(i) {
                 if(i.id === mockData.identities.registered.identity.id) {
                   return true;
                 }
@@ -103,9 +101,9 @@ describe('bedrock-identity-http', function() {
         describe('POST to create new identity', function() {
           it('should reject a malformed identity');
           it('should create and lookup a new identity', function(done) {
-            var userId = uuid();
-            var privateKeyPem = actor.keys.privateKey.privateKeyPem;
-            var publicKeyId = actor.keys.privateKey.publicKey;
+            const userId = uuid();
+            const privateKeyPem = actor.keys.privateKey.privateKeyPem;
+            const publicKeyId = actor.keys.privateKey.publicKey;
             async.waterfall([
               function(callback) {
                 sendRequest({
@@ -143,11 +141,11 @@ describe('bedrock-identity-http', function() {
           });
 
           it('should return 400 for invalid identity owner', function(done) {
-            var actor = mockData.identities.registered;
-            var userId = uuid();
-            var privateKeyPem = actor.keys.privateKey.privateKeyPem;
-            var publicKeyId = actor.keys.privateKey.publicKey;
-            var group = createIdentity(userId);
+            const actor = mockData.identities.registered;
+            const userId = uuid();
+            const privateKeyPem = actor.keys.privateKey.privateKeyPem;
+            const publicKeyId = actor.keys.privateKey.publicKey;
+            const group = createIdentity(userId);
             group.type = ['Identity', 'Group'];
             group.owner = mockData.identities.adminUser.identity.id;
             async.waterfall([
@@ -175,10 +173,10 @@ describe('bedrock-identity-http', function() {
           });
 
           it('should return 409 on a duplicate identity', function(done) {
-            var userId = uuid();
-            var actor = mockData.identities.adminUser;
-            var privateKeyPem = actor.keys.privateKey.privateKeyPem;
-            var publicKeyId = actor.keys.privateKey.publicKey;
+            const userId = uuid();
+            const actor = mockData.identities.adminUser;
+            const privateKeyPem = actor.keys.privateKey.privateKeyPem;
+            const publicKeyId = actor.keys.privateKey.publicKey;
             async.waterfall([
               function(callback) {
                 sendRequest(
@@ -222,16 +220,16 @@ describe('bedrock-identity-http', function() {
         }); // end POST request
 
         describe('should update any identity', function() {
-          var actor = mockData.identities.adminUser;
-          var userId = uuid();
-          var groupId = uuid();
-          var privateKeyPem = actor.keys.privateKey.privateKeyPem;
-          var publicKeyId = actor.keys.privateKey.publicKey;
-          var createdIdentity = null;
-          var createdGroup = null;
+          const actor = mockData.identities.adminUser;
+          const userId = uuid();
+          const groupId = uuid();
+          const privateKeyPem = actor.keys.privateKey.privateKeyPem;
+          const publicKeyId = actor.keys.privateKey.publicKey;
+          let createdIdentity = null;
+          let createdGroup = null;
 
           before(function(done) {
-            var newIdentity = createIdentity(userId);
+            const newIdentity = createIdentity(userId);
             newIdentity.sysResourceRole = [{
               sysRole: 'bedrock-identity-http.identity.registered',
               generateResource: 'id'
@@ -250,8 +248,8 @@ describe('bedrock-identity-http', function() {
                   callback(err, createdIdentity);
                 });
               },
-              createGroup: ['createIdentity', function(callback, results) {
-                var group = createIdentity(groupId);
+              createGroup: ['createIdentity', function(callback) {
+                const group = createIdentity(groupId);
                 group.owner = actor.id;
                 group.type = ['Identity', 'Group'];
                 sendRequest({
@@ -269,7 +267,7 @@ describe('bedrock-identity-http', function() {
           });
 
           it('should update an identities label', function(done) {
-            var newData = uuid();
+            const newData = uuid();
             async.waterfall([
               function(callback) {
                 sendRequest({
@@ -306,7 +304,7 @@ describe('bedrock-identity-http', function() {
           });
 
           it('should update an identities description', function(done) {
-            var newData = uuid();
+            const newData = uuid();
             async.waterfall([
               function(callback) {
                 sendRequest({
@@ -343,7 +341,7 @@ describe('bedrock-identity-http', function() {
           });
 
           it('should update an identities sysResourceRoles', function(done) {
-            var updatedSysResourceRole = actor.identity.sysResourceRole;
+            const updatedSysResourceRole = actor.identity.sysResourceRole;
             updatedSysResourceRole.push({
               sysRole: 'bedrock-identity-http.identity.manager',
               resource: [createdGroup.id]
@@ -397,13 +395,13 @@ describe('bedrock-identity-http', function() {
 });
 
 function sendRequest(options, callback) {
-  var url = options.url;
-  var reqBody = options.identity || null;
-  var privateKeyPem = options.privateKeyPem || null;
-  var publicKeyId = options.publicKeyId || null;
-  var reqMethod = options.method;
+  const url = options.url;
+  const reqBody = options.identity || null;
+  const privateKeyPem = options.privateKeyPem || null;
+  const publicKeyId = options.publicKeyId || null;
+  const reqMethod = options.method;
 
-  var requestOptions = {
+  const requestOptions = {
     method: reqMethod,
     url: url,
     json: true
@@ -422,7 +420,7 @@ function sendRequest(options, callback) {
 }
 
 function createIdentity(userName) {
-  var newIdentity = {
+  const newIdentity = {
     // id: identityService + '/' + userName,
     type: 'Identity',
     sysSlug: userName,

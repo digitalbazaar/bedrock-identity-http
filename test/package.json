@@ -35,7 +35,7 @@
     "bedrock-permission": "^2.3.0",
     "bedrock-server": "^2.1.2",
     "bedrock-test": "^2.0.0",
-    "bedrock-validation": "^2.0.0",
+    "bedrock-validation": "^3.1.0",
     "request": "^2.64.0",
     "uuid": "^3.3.2"
   }

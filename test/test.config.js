@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2018 Digital Bazaar, Inc. All rights reserved.
  */
 
-var config = require('bedrock').config;
-var path = require('path');
+const config = require('bedrock').config;
+const path = require('path');
 
 // tests
 config.mocha.tests.push(path.join(__dirname, 'mocha'));
@@ -18,8 +18,8 @@ config.mongodb.dropCollections = {};
 config.mongodb.dropCollections.onInit = true;
 config.mongodb.dropCollections.collections = [];
 
-var permissions = config.permission.permissions;
-var roles = config.permission.roles;
+const permissions = config.permission.permissions;
+const roles = config.permission.roles;
 
 roles['bedrock-identity-http.identity.administrator'] = {
   id: 'bedrock-identity-http.identity.administrator',
