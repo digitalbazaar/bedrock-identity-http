@@ -12,7 +12,7 @@ var config = bedrock.config;
 var helpers = require('./helpers');
 var mockData = require('./mock.data');
 var request = require('request');
-var uuid = require('uuid').v4;
+var uuid = require('uuid/v4');
 request = request.defaults({json: true, strictSSL: false});
 
 var identityService = config.server.baseUri + config['identity-http'].basePath;

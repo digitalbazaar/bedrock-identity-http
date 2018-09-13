@@ -7,7 +7,7 @@ var brIdentity = require('bedrock-identity');
 var brKey = require('bedrock-key');
 var config = bedrock.config;
 var database = require('bedrock-mongodb');
-var uuid = require('uuid').v4;
+var uuid = require('uuid/v4');
 
 var helpers = {};
 module.exports = helpers;

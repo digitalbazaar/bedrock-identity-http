@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node --preserve-symlinks test.js test"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/bedrock-identity-http.git"
@@ -36,6 +37,6 @@
     "bedrock-test": "^2.0.0",
     "bedrock-validation": "^2.0.0",
     "request": "^2.64.0",
-    "uuid": "^2.0.2"
+    "uuid": "^3.3.2"
   }
 }
