@@ -1,5 +1,4 @@
 *.log
-*.py[co]
 *.sw[nop]
 *~
 TAGS

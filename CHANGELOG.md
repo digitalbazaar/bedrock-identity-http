@@ -1,5 +1,18 @@
 # bedrock-identity-http ChangeLog
 
+## 2.0.0 - TBD
+
+### Changed
+- Update to bedrock-validation 3.x.
+- Update to bedrock-identity 6.x.
+- Update to bedrock-key 5.x.
+- Update to bedrock-passport 4.x.
+- Update validation schemas.
+
+### Removed
+- Deprecated identity update APIs.
+- Helpers for adding identities and keys via the configuration system.
+
 ## 1.2.2 - 2018-03-26
 
 ### Changed

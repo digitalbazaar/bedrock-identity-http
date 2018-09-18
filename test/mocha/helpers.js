@@ -22,10 +22,7 @@ helpers.createIdentity = function(userName) {
     sysSlug: userName,
     label: userName,
     email: userName + '@bedrock.dev',
-    sysPassword: 'password',
     sysPublic: ['label'],
-    sysResourceRole: [],
-    sysStatus: 'active',
     url: config.server.baseUri,
     description: userName
   };
@@ -42,7 +39,7 @@ helpers.createKeyPair = function(options) {
     publicKey: {
       '@context': 'https://w3id.org/identity/v1',
       id: keyId,
-      type: 'CryptographicKey',
+      type: 'RsaVerificationKey2018',
       owner: ownerId,
       label: 'Signing Key 1',
       publicKeyPem: publicKey
@@ -85,19 +82,17 @@ helpers.removeCollections = function(callback) {
 
 // Insert identities and public keys used for testing into database
 function insertTestData(options, done) {
-  const mockData = options.mockData;
-  async.forEachOf(mockData.identities, function(identity, key, callback) {
+  const {identities} = options.mockData;
+  async.forEachOf(identities, ({identity, keys, meta}, k, callback) => {
     async.parallel([
-      function(callback) {
-        brIdentity.insert(null, identity.identity, callback);
-      },
-      function(callback) {
-        brKey.addPublicKey(null, identity.keys.publicKey, callback);
-      }
+      callback => brIdentity.insert({actor: null, identity, meta}, callback),
+      callback => brKey.addPublicKey(
+        {actor: null, publicKey: keys.publicKey},
+        callback),
     ], callback);
   }, function(err) {
     if(err) {
-      if(!database.isDuplicateError(err)) {
+      if(err.name !== 'DuplicateError') {
         // duplicate error means test data is already loaded
         return done(err);
       }

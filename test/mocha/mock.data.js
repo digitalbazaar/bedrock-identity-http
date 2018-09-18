@@ -18,10 +18,11 @@ userName = 'registered';
 keyId = '969700f0-ef10-49c5-8328-4826a907a82a';
 identities[userName] = {};
 identities[userName].identity = helpers.createIdentity(userName);
-identities[userName].identity.sysResourceRole.push({
-  sysRole: 'bedrock-identity-http.identity.registered',
-  generateResource: 'id'
-});
+identities[userName].meta = {
+  sysResourceRole: [{
+    sysRole: 'bedrock-identity-http.identity.registered',
+    generateResource: 'id'
+  }]};
 
 identities[userName].keys = helpers.createKeyPair({
   id: keyId,
@@ -68,14 +69,13 @@ userName = 'adminUser';
 keyId = '2b3e8b8f-e0aa-4acd-9d6f-3ad10e4395ac';
 identities[userName] = {};
 identities[userName].identity = helpers.createIdentity(userName);
-identities[userName].identity.sysResourceRole.push({
-  sysRole: 'bedrock-identity-http.admin'
-});
-identities[userName].identity.sysResourceRole.push({
-  sysRole: 'bedrock-identity-http.admin',
-  generateResource: 'id'
-});
-
+identities[userName].meta = {
+  sysResourceRole: [{
+    sysRole: 'bedrock-identity-http.admin'
+  }, {
+    sysRole: 'bedrock-identity-http.admin',
+    generateResource: 'id'
+  }]};
 identities[userName].keys = helpers.createKeyPair({
   id: keyId,
   owner: identities[userName].identity.id,
