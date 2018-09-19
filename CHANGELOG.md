@@ -1,5 +1,10 @@
 # bedrock-identity-http ChangeLog
 
+## 2.0.0 - 2018-09-19
+
+### Changed
+- Use bedrock-validation 3.x.
+
 ## 1.2.2 - 2018-03-26
 
 ### Changed
