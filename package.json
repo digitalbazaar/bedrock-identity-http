@@ -3,7 +3,10 @@
   "version": "2.0.1-0",
   "description": "An HTTP API for bedrock-identity",
   "main": "./lib",
-  "scripts": {},
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/bedrock-identity-http.git"
@@ -21,7 +24,8 @@
     "async": "^1.5.2",
     "cors": "^2.7.1",
     "jsonld": "^0.4.2",
-    "lodash": "^4.10.0"
+    "lodash": "^4.10.0",
+    "snyk": "^1.192.3"
   },
   "peerDependencies": {
     "bedrock": "^1.0.6",
@@ -33,5 +37,6 @@
     "bedrock-passport": "^3.0.0",
     "bedrock-permission": "^2.3.0",
     "bedrock-validation": "^3.1.0"
-  }
+  },
+  "snyk": true
 }
